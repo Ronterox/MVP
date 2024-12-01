@@ -1,5 +1,12 @@
 <?php
 
+// TODO: Add logging table with date and action
+// TODO: registration for users using session quick
+
+// TODO: Compare alpinejs advantages vs hyperscript
+// if-for for-each x-text
+// init on wait send every 5s
+
 $theme = 'blue';
 
 session_start();
@@ -34,7 +41,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Htmx/Php Login</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.<?= $theme ?>.min.css">
@@ -49,10 +56,10 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         <h1 class="ui header">Login</h1>
         <form hx-post="/" hx-target-4*='#message'>
             <label for="username" class="ui small blue label">Username</label>
-            <input type="text" name="username" id="username" required>
+            <input type="text" name="username" required>
 
             <label for="password" class="ui small blue label">Password</label>
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" required>
 
             <input type="submit" value="Login">
 
