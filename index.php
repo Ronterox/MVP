@@ -7,9 +7,23 @@
 // if-for for-each x-text
 // init on wait send every 5s
 
+$db = new SQLite3('db.sqlite', SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
+$db->enableExceptions(true);
+
+$db->exec('CREATE TABLE IF NOT EXISTS logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    log_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ip TEXT,
+    session_time DATETIME
+)');
+
 $theme = 'blue';
 
 session_start();
+
+if ($_SERVER['REQUEST_URI'] == '/logout') {
+    $_SESSION['auth'] = false;
+}
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
     $user = filter_input(INPUT_POST, 'username');
@@ -17,7 +31,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
     if ($user == 'admin' && $pass == 'admin') {
         $_SESSION['auth'] = true;
-        $message .= "Success!!";
+        $message .= "<span hx-get='/dashboard' hx-target='body' hx-trigger='every 1s'>Success!</span>";
         $color = 'green';
     } else {
         http_response_code(401);
@@ -30,9 +44,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     HTML;
 
     die($html);
-} else {
+} elseif ($_SERVER['REQUEST_URI'] == '/') {
     $_SESSION['auth'] = false;
 }
+
+$db->close();
 ?>
 
 <!DOCTYPE html>
@@ -52,23 +68,61 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 </head>
 
 <body hx-ext="response-targets">
-    <main id="login">
-        <h1 class="ui header">Login</h1>
-        <form hx-post="/" hx-target-4*='#message'>
-            <label for="username" class="ui small blue label">Username</label>
-            <input type="text" name="username" required>
+    <?php
+    if (!$_SESSION['auth']) {
+        echo <<<HTML
+        <main id="login">
+            <h1 class="ui header">Login</h1>
+            <form hx-post="/" hx-target-4*='#message'>
+                <label for="username" class="ui small blue label">Username</label>
+                <input type="text" name="username" required>
 
-            <label for="password" class="ui small blue label">Password</label>
-            <input type="password" name="password" required>
+                <label for="password" class="ui small blue label">Password</label>
+                <input type="password" name="password" required>
 
-            <input type="submit" value="Login">
+                <input type="submit" value="Login">
 
-            <div class="ui horizontal divider">
-                <a href=''>Register</a>
-            </div>
-            <div id='message'></div>
-        </form>
-    </main>
+                <div class="ui horizontal divider">
+                    <a href=''>Register</a>
+                </div>
+                <div id='message'></div>
+            </form>
+        </main>
+        HTML;
+    } else {
+        echo <<<HTML
+            <main id="dashboard">
+                <h1 class="ui header">Dashboard</h1>
+                <div class="ui horizontal divider">
+                    <a hx-get="/logout" hx-target="body">Logout</a>
+                </div>
+                <table>
+                    <tr>
+                        <th>Log Time</th>
+                        <th>IP</th>
+                        <th>Session Time</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+            </main>
+        HTML;
+    }
+    ?>
 </body>
 
 </html>
