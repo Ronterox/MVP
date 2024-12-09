@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Htmx/Php Login</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.{{$theme}}.min.css">
+
+    <style>
+        @import 'css/index.css'
+    </style>
+
+    <script defer src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <script defer src="https://unpkg.com/htmx-ext-response-targets@2.0.0/response-targets.js"></script>
+</head>
+
+<body hx-ext="response-targets">
+    @if !$auth
+    <main id="login">
+        <h1 class="ui header">Login</h1>
+        <form hx-post="/" hx-target-4*='#message'>
+            <label for="username" class="ui small blue label">Username</label>
+            <input type="text" name="username" required>
+
+            <label for="password" class="ui small blue label">Password</label>
+            <input type="password" name="password" required>
+
+            <input type="submit" value="Login">
+
+            <div class="ui horizontal divider">
+                <a href=''>Register</a>
+            </div>
+            <div id='message'></div>
+        </form>
+    </main>
+    @else
+    <main id="dashboard">
+        <h1 class="ui header">Dashboard</h1>
+        <table>
+            <tr>
+                <th>Log Time</th>
+                <th>IP</th>
+                <th>Session Time</th>
+            </tr>
+            @foreach $log in $logs
+            <tr>
+                <td>{{ $time }}</td>
+                <td>{{ $ip }}</td>
+                <td>{{ $sessionTime }}</td>
+            </tr>
+            @endforeach
+        </table>
+        <div class="ui horizontal divider">
+            <a hx-post="/" hx-vals='{"logout": true}' hx-target="body">Logout</a>
+        </div>
+    </main>
+    @endif
+</body>
+
+</html>
