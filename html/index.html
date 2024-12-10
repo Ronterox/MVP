@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Htmx/Php Login</title>
+    <title>MVP Login</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.{{$theme}}.min.css">
@@ -15,6 +15,7 @@
 
     <script defer src="https://unpkg.com/htmx.org@2.0.3"></script>
     <script defer src="https://unpkg.com/htmx-ext-response-targets@2.0.0/response-targets.js"></script>
+    <script defer src="https://unpkg.com/hyperscript.org@0.9.13"></script>
 </head>
 
 <body hx-ext="response-targets">
@@ -39,6 +40,8 @@
     @else
     <main id="dashboard">
         <h1 class="ui header">Dashboard</h1>
+        <input type="text" placeholder="Search..."
+            _="on keyup show .row in <table/> when its textContent contains my value">
         <table>
             <tr>
                 <th>Log Time</th>
@@ -46,10 +49,10 @@
                 <th>Session Time</th>
             </tr>
             @foreach $log in $logs
-            <tr>
-                <td>{{ $time }}</td>
+            <tr class="row">
+                <td>{{ $log_time }}</td>
                 <td>{{ $ip }}</td>
-                <td>{{ $sessionTime }}</td>
+                <td>{{ $session_time ?? 'On Going' }} (seconds) </td>
             </tr>
             @endforeach
         </table>

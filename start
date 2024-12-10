@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-tmux-send-cmd 'hot-reload' 'live-server --port=5000 --no-browser'
 tmux-send-cmd 'server' 'php -S localhost:8080'
+tmux-send-cmd 'hot-reload' 'live-server --port=5000 --no-browser'
 nvim .
