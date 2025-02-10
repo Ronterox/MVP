@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MVP Login</title>
+    <title>Club Femboy</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.{{$theme}}.min.css">
@@ -19,48 +19,17 @@
 </head>
 
 <body hx-ext="response-targets">
-    @if !$auth
-    <main id="login">
-        <h1 class="ui header">Login</h1>
-        <form hx-post="/" hx-target-4*='#message'>
-            <label for="username" class="ui small blue label">Username</label>
-            <input type="text" name="username" required>
-
-            <label for="password" class="ui small blue label">Password</label>
-            <input type="password" name="password" required>
-
-            <input type="submit" value="Login">
-
-            <div class="ui horizontal divider">
-                <a href=''>Register</a>
-            </div>
-            <div id='message'></div>
-        </form>
+    <main class="ui container">
+        <section class="ui segment center aligned">
+            <h1 class="purple ui center aligned header">Bienvenido al club femboy</h1>
+            <img class="ui centered medium rounded image" src="{{$astolfo[3]}}" alt="astolfo saying hi">
+            <h2 class="purple ui center aligned huge sub header">Lugar para compartir el hecho de ser femboy</h2>
+            <div class="ui section divider"></div>
+            <img class="ui centered rounded image" src="{{$astolfo[2]}}" alt="astolfo inviting to join">
+            <br />
+            <button class="ui purple button">Entra ahora!</button>
+        </section>
     </main>
-    @else
-    <main id="dashboard">
-        <h1 class="ui header">Dashboard</h1>
-        <input type="text" placeholder="Search..."
-            _="on keyup show .row in <table/> when its textContent contains my value">
-        <table>
-            <tr>
-                <th>Log Time</th>
-                <th>IP</th>
-                <th>Session Time</th>
-            </tr>
-            @foreach $log in $logs
-            <tr class="row">
-                <td>{{ $log_time }}</td>
-                <td>{{ $ip }}</td>
-                <td>{{ $session_time ?? 'On Going' }} (seconds) </td>
-            </tr>
-            @endforeach
-        </table>
-        <div class="ui horizontal divider">
-            <a hx-post="/" hx-vals='{"logout": true}' hx-target="body">Logout</a>
-        </div>
-    </main>
-    @endif
 </body>
 
 </html>
