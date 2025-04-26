@@ -18,8 +18,10 @@ Root
 
 html {}
 
-body {}
-
+body {
+    background: rgb(82, 35, 106);
+    background: linear-gradient(90deg, rgba(82, 35, 106, 1) 5%, rgba(180, 18, 180, 1) 52%, rgba(134, 0, 255, 1) 100%);
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 Content sectioning
