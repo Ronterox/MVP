@@ -1,13 +1,16 @@
-# MVP
+# Femboy Club MVP
 
-Simple template for creating an MVP webpage, with fast login and my other PHP utilities
+## Objectives
 
-### Example
+- Privado para que la gente se pueda comunicar, y filtrar correctamente femboys reales
 
-> The Simple Code
+- Planear eventos
 
-![code](media/code.png)
+- Bby haga marketing feliz
 
-> The Fully Functional Render
+- Creen preguntas comunes
 
-![render](media/render.png)
+- Se verifiquen poco a poco y tengan status de femboy
+
+- Planeen cosas, posteen lo que quieran a lo 4chan pero mainstrea, femboy anonimo 242151251
+
